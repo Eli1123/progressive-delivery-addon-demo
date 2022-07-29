@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: flask
+  name: flask
+spec:
+  selector: 
+    matchLabels:
+      app: flask
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: flask
+    spec:
+      containers:
+      - name: flask
+        image: nikunjv/flask-image:green
+        ports:
+          - containerPort: 5000
+        # command:
+        #   - "sh"
+        #   - "-c"
+        #   - "yum install -y python3-pip && tail -f /var/log/yum.log "
+        resources:
+          limits:
+            memory: "500Mi"
+            cpu: "0.25"
