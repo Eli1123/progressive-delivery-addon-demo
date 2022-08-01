@@ -43,10 +43,10 @@ spec:
       - name: "smoke test"
         type: pre-rollout
         url: http://a7dd4a42226b34947a23444c65e7ef9a-1007975881.us-east-2.elb.amazonaws.com/
-        timeout: 3m
+        timeout: 3s
         metadata:
-          type: "helm"
-          cmd: "test {{ .Release.Name }} --cleanup"
+          type: bash
+          cmd: "curl -sd 'anon' http://podinfo-canary.test:9898/token | grep token"
       - name: load-test
         url: http://flagger-loadtester.test/
         timeout: 5s
