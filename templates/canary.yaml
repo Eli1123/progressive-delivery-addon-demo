@@ -42,14 +42,14 @@ spec:
     webhooks:
       - name: "smoke test"
         type: pre-rollout
-        url: http://flagger-loadtester.default/
+        url: http://flagger-loadtester.argocd/
         timeout: 3s
         metadata:
           type: bash
-          cmd: "curl -sd 'test' http://podinfo-canary.default:9898/token | grep token"
+          cmd: "curl -sd 'test' http://podinfo-canary.argocd:9898/token | grep token"
       - name: load-test
-        url: http://flagger-loadtester.default/
+        url: http://flagger-loadtester.argocd/
         timeout: 5s
         metadata:
           type: cmd
-          cmd: "hey -z 1m -q 10 -c 2 http://podinfo-canary.default:9898/"
+          cmd: "hey -z 1m -q 10 -c 2 http://podinfo-canary.argocd:9898/"
