@@ -40,13 +40,6 @@ spec:
         interval: 30s
     # acceptance/load testing hooks
     webhooks:
-      - name: "smoke test"
-        type: pre-rollout
-        url: http://flagger-loadtester.argocd/
-        timeout: 3s
-        metadata:
-          type: bash
-          cmd: "curl -sd 'test' http://podinfo-canary.argocd:9898/token | grep token"
       - name: load-test
         url: http://flagger-loadtester.argocd/
         timeout: 5s
