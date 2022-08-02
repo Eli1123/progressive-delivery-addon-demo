@@ -42,7 +42,7 @@ spec:
     webhooks:
       - name: smoke-test
         type: pre-rollout
-        url: http://a7dd4a42226b34947a23444c65e7ef9a-1007975881.us-east-2.elb.amazonaws.com/
+        url: http://flagger-loadtester.argocd/
         timeout: 15s
         metadata:
           type: bash
