@@ -1,7 +1,7 @@
 apiVersion: flagger.app/v1beta1
 kind: Canary
 metadata:
-  name: podinfo
+  name: flask
 spec:
   # service mesh provider can be: kubernetes, istio, appmesh, nginx, gloo
   provider: kubernetes

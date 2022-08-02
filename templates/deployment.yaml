@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: flask
-        image: nikunjv/flask-image:green
+        image: nikunjv/flask-image:blue
         ports:
           - containerPort: 5000
         # command:
