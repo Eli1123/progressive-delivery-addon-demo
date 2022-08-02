@@ -46,10 +46,10 @@ spec:
         timeout: 15s
         metadata:
           type: bash
-          cmd: "curl -sd 'anon' http://podinfo-canary.test:9898/token | grep token"
+          cmd: "curl -sd 'anon' http://flask-canary.argocd:9898/token | grep token"
       - name: load-test
         url: http://flask.test/
         timeout: 5s
         metadata:
           type: cmd
-          cmd: "hey -z 1m -q 10 -c 2 http://podinfo-canary.test:9898/"
+          cmd: "hey -z 1m -q 10 -c 2 http://flask-canary.argocd:9898/"
