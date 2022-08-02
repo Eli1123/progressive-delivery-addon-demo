@@ -38,3 +38,18 @@ spec:
         thresholdRange:
           max: 500
         interval: 30s
+    # acceptance/load testing hooks
+    webhooks:
+      - name: smoke-test
+        type: pre-rollout
+        url: http://a7dd4a42226b34947a23444c65e7ef9a-1007975881.us-east-2.elb.amazonaws.com/
+        timeout: 15s
+        metadata:
+          type: bash
+          cmd: "curl -sd 'anon' http://podinfo-canary.test:9898/token | grep token"
+      - name: load-test
+        url: http://flask.test/
+        timeout: 5s
+        metadata:
+          type: cmd
+          cmd: "hey -z 1m -q 10 -c 2 http://podinfo-canary.test:9898/"
