@@ -48,7 +48,7 @@ spec:
           type: bash
           cmd: "curl -sd 'anon' http://flask-canary.argocd:9898/token | grep token"
       - name: load-test
-        url: http://flask.test/
+        url: http://flagger-loadtester.argocd/
         timeout: 5s
         metadata:
           type: cmd
