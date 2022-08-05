@@ -15,8 +15,8 @@ spec:
         app: flagger-loadtester
       annotations:
         prometheus.io/scrape: "true"
-        prometheus.io/port: "8080"
-        openservicemesh.io/inbound-port-exclusion-list: "81, 8080"
+        prometheus.io/port: "8081"
+        openservicemesh.io/inbound-port-exclusion-list: "81, 8081"
     spec:
       containers:
         - name: loadtester
@@ -24,10 +24,10 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: 8081
           command:
             - ./loadtester
-            - -port=8080
+            - -port=8081
             - -log-level=info
             - -timeout=1h
           livenessProbe:
@@ -38,7 +38,7 @@ spec:
                 - --tries=1
                 - --timeout=4
                 - --spider
-                - http://localhost:8080/healthz
+                - http://localhost:8081/healthz
             timeoutSeconds: 5
           readinessProbe:
             exec:
@@ -48,7 +48,7 @@ spec:
                 - --tries=1
                 - --timeout=4
                 - --spider
-                - http://localhost:8080/healthz
+                - http://localhost:8081/healthz
             timeoutSeconds: 5
           resources:
             limits:
