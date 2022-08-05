@@ -18,7 +18,7 @@ spec:
     portDiscovery: true
   analysis:
     # schedule interval (default 60s)
-    interval: 30s
+    interval: 3s
     # max number of failed checks before rollback
     threshold: 2
     # number of checks to run before rollback
@@ -31,13 +31,13 @@ spec:
         # percentage (0-100)
         thresholdRange:
           min: 99
-        interval: 1m
+        interval: 5s
       - name: request-duration
         # maximum req duration P99
         # milliseconds
         thresholdRange:
           max: 500
-        interval: 30s
+        interval: 3s
     # acceptance/load testing hooks
     webhooks:
       - name: smoke-test
