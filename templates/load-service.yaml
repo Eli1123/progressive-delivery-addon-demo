@@ -11,6 +11,6 @@ spec:
     app: flagger-loadtester
   ports:
     - name: http
-      port: 81
+      port: 80
       protocol: TCP
       targetPort: http
