@@ -18,7 +18,7 @@ spec:
     portDiscovery: true
   analysis:
     # schedule interval (default 60s)
-    interval: 3s
+    interval: 30s
     # max number of failed checks before rollback
     threshold: 2
     # number of checks to run before rollback
@@ -31,13 +31,13 @@ spec:
         # percentage (0-100)
         thresholdRange:
           min: 99
-        interval: 5s
+        interval: 1m
       - name: request-duration
         # maximum req duration P99
         # milliseconds
         thresholdRange:
           max: 500
-        interval: 3s
+        interval: 30s
     # acceptance/load testing hooks
     webhooks:
       - name: smoke-test
@@ -46,7 +46,7 @@ spec:
         timeout: 15s
         metadata:
           type: bash
-          cmd: "curl -sd 'anon' http://flask-canary.argocd:5000/"
+          cmd: "curl -sd 'anon' http://flask-canary.argocd:5000/token | grep token"
       - name: load-test
         url: http://flagger-loadtester.argocd/
         timeout: 5s
