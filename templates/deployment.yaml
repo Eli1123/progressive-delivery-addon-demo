@@ -23,15 +23,6 @@ spec:
         #   - "sh"
         #   - "-c"
         #   - "yum install -y python3-pip && tail -f /var/log/yum.log "
-        readinessProbe:
-          exec:
-            command:
-            - podcli
-            - check
-            - http
-            - localhost:5000/readyz
-          initialDelaySeconds: 5
-          timeoutSeconds: 5
         resources:
           limits:
             memory: "500Mi"
