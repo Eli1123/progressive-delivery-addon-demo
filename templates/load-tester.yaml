@@ -4,7 +4,7 @@ metadata:
   name: flagger-loadtester
   labels:
     app: flagger-loadtester
-  namespace: argocd
+  namespace: testing
 spec:
   selector:
     matchLabels:
@@ -52,11 +52,11 @@ spec:
             timeoutSeconds: 5
           resources:
             limits:
-              memory: "512Mi"
-              cpu: "1000m"
+              memory: "700Mi"
+              cpu: "2000m"
             requests:
-              memory: "32Mi"
-              cpu: "10m"
+              memory: "40Mi"
+              cpu: "100m"
           securityContext:
             readOnlyRootFilesystem: true
             runAsUser: 10001

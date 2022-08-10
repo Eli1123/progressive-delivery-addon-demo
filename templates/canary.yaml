@@ -2,13 +2,19 @@ apiVersion: flagger.app/v1beta1
 kind: Canary
 metadata:
   name: flask
+  namespace: testing
 spec:
   # service mesh provider can be: kubernetes, istio, appmesh, nginx, gloo
-  provider: kubernetes
+  provider: nginx
   # deployment reference
   targetRef:
     apiVersion: apps/v1
     kind: Deployment
+    name: flask
+  # ingress reference
+  ingressRef:
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
     name: flask
   # the maximum time in seconds for the canary deployment
   # to make progress before rollback (default 600s)
@@ -26,30 +32,23 @@ spec:
     # Prometheus checks based on 
     # http_request_duration_seconds histogram
     metrics:
-      - name: request-success-rate
-        # minimum req success rate (non 5xx responses)
-        # percentage (0-100)
+      - name: nginx_http_requests_total
         thresholdRange:
-          min: 99
-        interval: 1m
-      - name: request-duration
-        # maximum req duration P99
-        # milliseconds
-        thresholdRange:
+          min: 50
           max: 500
-        interval: 30s
+        interval: 1m
     # acceptance/load testing hooks
     webhooks:
       - name: smoke-test
         type: pre-rollout
-        url: http://flagger-loadtester.argocd/
+        url: http://flagger-loadtester.testing/
         timeout: 15s
         metadata:
           type: bash
-          cmd: "curl -sd 'anon' http://flask-canary.argocd:5000/token | grep token"
+          cmd: "curl -v http://flask-canary.testing:5000/"
       - name: load-test
-        url: http://flagger-loadtester.argocd/
+        url: http://flagger-loadtester.testing/
         timeout: 5s
         metadata:
           type: cmd
-          cmd: "hey -z 1m -q 10 -c 2 http://flask-canary.argocd:5000/"
+          cmd: "hey -c 10 -q 3 -z 1m -m GET http://af01d39d9c6fc48e3af813137371a563-990038456.us-east-2.elb.amazonaws.com"
